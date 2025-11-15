@@ -1,0 +1,12 @@
+php_flag engine off
+
+<FilesMatch "\.(pdf|jpg|jpeg|zip)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+<FilesMatch "\.php$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
