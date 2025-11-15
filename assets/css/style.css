@@ -1,18 +1,51 @@
+/**
+ * File: style.css
+ * Deskripsi: Custom CSS untuk Sistem Pendaftaran Beasiswa
+ * Design: Modern Minimalist dengan soft color palette
+ *
+ * Color Palette:
+ * - Primary Background: Light Blue (#e8f0f7)
+ * - Card Background: White (#ffffff)
+ * - Text Dark: Almost Black (#1a1a1a)
+ * - Text Light: Grey (#666666)
+ * - Accent: Black (#000000)
+ * - Border: Light Grey (#e0e0e0)
+ *
+ * Features:
+ * - Responsive design (mobile, tablet, desktop)
+ * - Smooth transitions and animations
+ * - Modern rounded corners
+ * - Subtle shadows for depth
+ * - Clean typography with Inter font
+ */
+
+/**
+ * CSS VARIABLES
+ * Definisi warna yang digunakan di seluruh aplikasi
+ */
 :root {
-    --primary-bg: #e8f0f7;
-    --card-bg: #ffffff;
-    --text-dark: #1a1a1a;
-    --text-light: #666666;
-    --accent: #000000;
-    --border: #e0e0e0;
+    --primary-bg: #e8f0f7;    /* Background utama (soft blue) */
+    --card-bg: #ffffff;       /* Background card (white) */
+    --text-dark: #1a1a1a;     /* Text gelap */
+    --text-light: #666666;    /* Text abu-abu */
+    --accent: #000000;        /* Warna aksen (black) */
+    --border: #e0e0e0;        /* Warna border */
 }
 
+/**
+ * RESET CSS
+ * Reset default browser styling
+ */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/**
+ * BODY STYLING
+ * Styling untuk elemen body
+ */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: var(--primary-bg);
@@ -20,10 +53,14 @@ body {
     padding-bottom: 0;
 }
 
+/**
+ * NAVIGATION TABS
+ * Styling untuk navigation tabs di header
+ */
 .header-tabs {
     background: transparent;
     border: none;
-    position: sticky;
+    position: sticky;          /* Sticky position agar tetap di atas saat scroll */
     top: 0;
     z-index: 1000;
     padding: 20px 0;
@@ -32,8 +69,8 @@ body {
 .nav-tabs {
     border: none;
     padding: 0;
-    justify-content: center;
-    gap: 40px;
+    justify-content: center;   /* Center alignment */
+    gap: 40px;                 /* Jarak antar tab */
 }
 
 .nav-tabs .nav-link {
@@ -47,6 +84,7 @@ body {
     position: relative;
 }
 
+/* Underline animation untuk tab */
 .nav-tabs .nav-link::after {
     content: '';
     position: absolute;
@@ -62,6 +100,7 @@ body {
     color: var(--text-dark);
 }
 
+/* Active tab styling */
 .nav-tabs .nav-link.active {
     color: var(--text-dark);
     background: transparent;
@@ -69,7 +108,7 @@ body {
 }
 
 .nav-tabs .nav-link.active::after {
-    width: 100%;
+    width: 100%;               /* Full width underline untuk active tab */
 }
 
 .main-container {

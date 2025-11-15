@@ -1,15 +1,42 @@
 <?php
+/**
+ * File: daftar.php
+ * Deskripsi: Halaman form pendaftaran beasiswa
+ * Fungsi: Menampilkan form registrasi beasiswa dengan validasi IPK
+ *
+ * Fitur:
+ * - Input data mahasiswa (nama, email, nomor HP, semester)
+ * - IPK otomatis dari konstanta (tidak bisa diinput manual)
+ * - Validasi IPK minimal 3.0
+ * - Auto-disable form jika IPK < 3.0
+ * - Auto-focus ke pilihan beasiswa jika IPK >= 3.0
+ * - Upload berkas syarat (PDF/JPG/ZIP max 2MB)
+ * - Validasi client-side dan server-side
+ */
+
+// Include file koneksi database
 require_once 'config/connection.php';
 
+/**
+ * Konstanta IPK Mahasiswa
+ * Nilai IPK didapat dari sistem secara otomatis
+ * Ubah nilai ini untuk testing dengan IPK berbeda
+ * Contoh: 3.4 (memenuhi syarat) atau 2.9 (tidak memenuhi syarat)
+ */
 define('IPK_MAHASISWA', 3.4);
 
+// Cek apakah IPK memenuhi syarat minimal (3.0)
 $ipk_memenuhi = IPK_MAHASISWA >= 3.0;
 
+// Query untuk mengambil data jenis beasiswa dari database
 $query = "SELECT * FROM jenis_beasiswa ORDER BY id ASC";
 $result = mysqli_query($conn, $query);
 
+// Inisialisasi variabel untuk pesan notifikasi
 $message = '';
 $message_type = '';
+
+// Cek status dari URL parameter (redirect dari proses_daftar.php)
 if (isset($_GET['status'])) {
     if ($_GET['status'] == 'success') {
         $message = 'Pendaftaran beasiswa berhasil! Data Anda telah tersimpan.';
@@ -26,12 +53,21 @@ if (isset($_GET['status'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Beasiswa - Sistem Pendaftaran</title>
+
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts - Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <!-- Navigation Tabs -->
     <div class="header-tabs">
         <div class="container">
             <ul class="nav nav-tabs">
@@ -39,6 +75,7 @@ if (isset($_GET['status'])) {
                     <a class="nav-link" href="/">Pilihan Beasiswa</a>
                 </li>
                 <li class="nav-item">
+                    <!-- Tab aktif untuk halaman Daftar -->
                     <a class="nav-link active" href="daftar">Daftar</a>
                 </li>
                 <li class="nav-item">
@@ -48,11 +85,14 @@ if (isset($_GET['status'])) {
         </div>
     </div>
 
+    <!-- Main Container -->
     <div class="container">
         <div class="main-container">
+            <!-- Page Title -->
             <h1 class="page-title">Daftar Beasiswa</h1>
             <p class="page-subtitle">Lengkapi formulir pendaftaran beasiswa di bawah ini</p>
 
+            <!-- Alert Notification (jika ada pesan dari proses pendaftaran) -->
             <?php if ($message): ?>
             <div class="alert alert-<?php echo $message_type; ?> alert-dismissible fade show">
                 <?php echo $message; ?>
